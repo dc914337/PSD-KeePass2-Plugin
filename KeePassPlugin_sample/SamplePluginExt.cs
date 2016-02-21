@@ -126,7 +126,8 @@ namespace SamplePlugin
             foreach (var entry in v)
             {
                 MessageBox.Show(entry.Strings.Get(PwDefs.PasswordField).ReadString() );
-            }
+                
+            } 
 
 
             /*
