@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("PSD Plugin")]
 [assembly: AssemblyDescription("Plugin to use with PSD")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("PSD Team")]
+[assembly: AssemblyCompany("Dmitry Ivanov")]
 [assembly: AssemblyProduct("KeePass Plugin")]
 [assembly: AssemblyCopyright("Copyright © 2016 Dmitry Ivanov")]
 [assembly: AssemblyTrademark("PSD")]
