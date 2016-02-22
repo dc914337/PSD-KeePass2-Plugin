@@ -34,14 +34,14 @@ using KeePassLib.Security;
 // plugin without its extension.
 // For example, if you compile a plugin 'SamplePlugin.dll', the
 // namespace must be named 'SamplePlugin'.
-namespace SamplePlugin
+namespace PSDPlugin
 {
     /// <summary>
     /// This is the main plugin class. It must be named exactly
     /// like the namespace and must be derived from
     /// <c>KeePassPlugin</c>.
     /// </summary>
-    public sealed class SamplePluginExt : Plugin
+    public sealed class PSDPluginExt : Plugin
     {
         // The sample plugin remembers its host in this variable.
         private IPluginHost m_host = null;

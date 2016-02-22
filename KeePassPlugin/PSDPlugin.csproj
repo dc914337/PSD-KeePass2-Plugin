@@ -8,8 +8,8 @@
     <ProjectGuid>{4C1BB6F8-D2CD-49C2-9053-21705681356C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SamplePlugin</RootNamespace>
-    <AssemblyName>SamplePlugin</AssemblyName>
+    <RootNamespace>PSDPlugin</RootNamespace>
+    <AssemblyName>PSDPlugin</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
@@ -48,7 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SamplePluginExt.cs" />
+    <Compile Include="PSDPluginExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,7 +56,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>runas /user:Administrator C:\Users\Dmitry\Desktop\KeePassPlugin\obj\Debug\deploy.bat</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

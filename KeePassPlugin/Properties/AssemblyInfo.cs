@@ -22,7 +22,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General assembly properties
-[assembly: AssemblyTitle("Sample Plugin for Developers")]
+[assembly: AssemblyTitle("PSD Plugin")]
 [assembly: AssemblyDescription("A sample plugin for developers that demonstrates how to add menu items, password groups and entries.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Dominik Reichl")]
