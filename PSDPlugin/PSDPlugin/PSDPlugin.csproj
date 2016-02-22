@@ -56,7 +56,11 @@
     <Compile Include="Forms\WriteBase.Designer.cs">
       <DependentUpon>WriteBase.cs</DependentUpon>
     </Compile>
-    <Compile Include="Locales\Localization.Designer.cs" />
+    <Compile Include="Locales\Localization.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Localization.resx</DependentUpon>
+    </Compile>
     <Compile Include="PSDPluginExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -68,7 +72,10 @@
     <EmbeddedResource Include="Forms\WriteBase.resx">
       <DependentUpon>WriteBase.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Locales\Localization.resx" />
+    <EmbeddedResource Include="Locales\Localization.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localization.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Locales\Localization.RU.resx" />
   </ItemGroup>
   <ItemGroup>

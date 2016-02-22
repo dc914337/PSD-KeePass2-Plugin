@@ -50,7 +50,6 @@
             // cmbPsds
             // 
             this.cmbPsds.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbPsds.Enabled = false;
             this.cmbPsds.FormattingEnabled = true;
             this.cmbPsds.Location = new System.Drawing.Point(7, 91);
             this.cmbPsds.Name = "cmbPsds";
@@ -65,6 +64,7 @@
             this.btnBrowseAndroid.TabIndex = 32;
             this.btnBrowseAndroid.Text = "Browse..";
             this.btnBrowseAndroid.UseVisualStyleBackColor = true;
+            this.btnBrowseAndroid.Click += new System.EventHandler(this.btnBrowseAndroid_Click);
             // 
             // txtAndroidBasePath
             // 
@@ -99,6 +99,7 @@
             this.btnWriteAll.TabIndex = 36;
             this.btnWriteAll.Text = "Write all";
             this.btnWriteAll.UseVisualStyleBackColor = true;
+            this.btnWriteAll.Click += new System.EventHandler(this.btnWriteAll_Click);
             // 
             // WriteBase
             // 

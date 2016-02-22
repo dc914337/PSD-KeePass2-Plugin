@@ -10,7 +10,9 @@ using KeePassLib;
 using PsdBasesSetter;
 using PsdBasesSetter.Device.Hid;
 using System.Linq;
-using PSD.Locales;
+
+using PsdBasesSetter.Repositories;
+using PSDPlugin.Locales;
 
 namespace PSDPlugin.Forms
 {
@@ -19,6 +21,8 @@ namespace PSDPlugin.Forms
         private PwDatabase database;
         private ProtectedString masterkey;
         public DataConnections DataConnections { get; set; } = new DataConnections();
+
+        private String _phoneBasePath;
 
 
 
@@ -31,8 +35,8 @@ namespace PSDPlugin.Forms
 
         private void WriteBase_Load(object sender, EventArgs e)
         {
-
-
+            DataConnections.UserPass = masterkey.ReadString();
+            ReinitPsds();
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -53,6 +57,45 @@ namespace PSDPlugin.Forms
             return psds.Any();
         }
 
+        private void btnBrowseAndroid_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.ShowDialog();
+            _phoneBasePath = saveFileDialog.FileName;
+            txtAndroidBasePath.Text = _phoneBasePath;
+        }
+
+        private void btnWriteAll_Click(object sender, EventArgs e)
+        {
+            if (!DataConnections.TryCreateAndSetPhoneBase(_phoneBasePath))
+            {
+                MessageBox.Show(Localization.CantLoadFileString);
+                return;
+            }
+        
+
+            switch (DataConnections.TrySetPsdBase((PSDDevice)cmbPsds.SelectedItem))
+            {
+                case PSDRepository.SetPsdResult.NotConnected:
+                    MessageBox.Show(Localization.PsdConnectionError);
+                    break;
+                case PSDRepository.SetPsdResult.WrongPassword:
+                    MessageBox.Show(Localization.WrongPasswordPSD);
+                    FlushPassword();
+                    break;
+            }
+        }
+
+
+
+        private void FlushPassword()
+        {
+            if (MessageBox.Show("Do you want to set new password on PSD?", "Reset PSD password", MessageBoxButtons.YesNo)
+                 == DialogResult.Yes)
+            {
+                DataConnections.PsdBase.Reset();
+            }
+        }
 
 
     }
