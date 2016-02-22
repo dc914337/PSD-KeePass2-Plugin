@@ -13,31 +13,33 @@ using System.Linq;
 
 using PsdBasesSetter.Repositories;
 using PSDPlugin.Locales;
+using PsdBasesSetter.Repositories.Objects;
+using PSDPlugin.Converter;
 
 namespace PSDPlugin.Forms
 {
     public partial class WriteBase : Form
     {
-        private PwDatabase database;
-        private ProtectedString masterkey;
-        public DataConnections DataConnections { get; set; } = new DataConnections();
-
+        private PwDatabase _kpDatabase;
+        private DataConnections DataConnections { get; set; } = new DataConnections();
         private String _phoneBasePath;
 
 
 
         public WriteBase(ProtectedString masterkey, PwDatabase database)
         {
-            this.masterkey = masterkey;
-            this.database = database;
+            DataConnections.UserPass = masterkey.ReadString();
+            this._kpDatabase = database;
             InitializeComponent();
         }
 
         private void WriteBase_Load(object sender, EventArgs e)
         {
-            DataConnections.UserPass = masterkey.ReadString();
             ReinitPsds();
+            Base psdBase = new PwBaseConverter(_kpDatabase).ConvertToPSD();
+
         }
+
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
@@ -72,7 +74,7 @@ namespace PSDPlugin.Forms
                 MessageBox.Show(Localization.CantLoadFileString);
                 return;
             }
-        
+
 
             switch (DataConnections.TrySetPsdBase((PSDDevice)cmbPsds.SelectedItem))
             {

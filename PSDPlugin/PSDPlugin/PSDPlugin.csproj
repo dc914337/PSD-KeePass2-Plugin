@@ -50,6 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converter\PwBaseConverter.cs" />
+    <Compile Include="Converter\PwGroupConverter.cs" />
+    <Compile Include="Converter\PwItemConverter.cs" />
     <Compile Include="Forms\WriteBase.cs">
       <SubType>Form</SubType>
     </Compile>
