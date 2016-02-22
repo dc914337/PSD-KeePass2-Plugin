@@ -47,11 +47,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\WriteBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WriteBase.Designer.cs">
+      <DependentUpon>WriteBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="PSDPluginExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\WriteBase.resx">
+      <DependentUpon>WriteBase.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

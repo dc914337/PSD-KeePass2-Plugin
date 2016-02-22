@@ -10,6 +10,8 @@ using KeePass.Resources;
 
 using KeePassLib;
 using KeePassLib.Security;
+using PSDPlugin.Forms;
+using KeePassLib.Keys;
 
 namespace PSDPlugin
 {
@@ -20,8 +22,11 @@ namespace PSDPlugin
 
         private ToolStripSeparator m_tsSeparator = null;
         private ToolStripMenuItem m_tsmiPopup = null;
-        private ToolStripMenuItem m_tsmiAddGroups = null;
-        private ToolStripMenuItem m_tsmiAddEntries = null;
+        private ToolStripMenuItem m_tsmiWrite = null;
+        private ToolStripMenuItem m_tsmiMerge = null;
+        private ToolStripMenuItem m_tsmiFirmware = null;
+        private ToolStripMenuItem m_tsmiKeysSync = null;
+
 
         /// <summary>
         /// The <c>Initialize</c> function is called by KeePass when
@@ -39,7 +44,6 @@ namespace PSDPlugin
             Debug.Assert(host != null);
             if (host == null) return false;
             m_host = host;
-
             // Get a reference to the 'Tools' menu item container
             ToolStripItemCollection tsMenu = m_host.MainWindow.ToolsMenu.DropDownItems;
 
@@ -49,20 +53,32 @@ namespace PSDPlugin
 
             // Add the popup menu item
             m_tsmiPopup = new ToolStripMenuItem();
-            m_tsmiPopup.Text = "Sample Plugin for Developers";
+            m_tsmiPopup.Text = "PSD";
             tsMenu.Add(m_tsmiPopup);
 
-            // Add menu item 'Add Some Groups'
-            m_tsmiAddGroups = new ToolStripMenuItem();
-            m_tsmiAddGroups.Text = "Add Some Groups";
-            m_tsmiAddGroups.Click += OnMenuAddGroups;
-            m_tsmiPopup.DropDownItems.Add(m_tsmiAddGroups);
+            // Add menu item 
+            m_tsmiWrite = new ToolStripMenuItem();
+            m_tsmiWrite.Text = "Write base to PSD and Android";
+            m_tsmiWrite.Click += OnWrite;
+            m_tsmiPopup.DropDownItems.Add(m_tsmiWrite);
 
-            // Add menu item 'Add Some Entries'
-            m_tsmiAddEntries = new ToolStripMenuItem();
-            m_tsmiAddEntries.Text = "Add Some Entries";
-            m_tsmiAddEntries.Click += OnMenuAddEntries;
-            m_tsmiPopup.DropDownItems.Add(m_tsmiAddEntries);
+            // Add menu item
+            m_tsmiMerge = new ToolStripMenuItem();
+            m_tsmiMerge.Text = "Merge and update";
+            m_tsmiMerge.Click += OnMerge;
+            m_tsmiPopup.DropDownItems.Add(m_tsmiMerge);
+
+            // Add menu item
+            m_tsmiKeysSync = new ToolStripMenuItem();
+            m_tsmiKeysSync.Text = "Synchronize keys";
+            m_tsmiKeysSync.Click += OnKeysSync;
+            m_tsmiPopup.DropDownItems.Add(m_tsmiKeysSync);
+
+            // Add menu item
+            m_tsmiFirmware = new ToolStripMenuItem();
+            m_tsmiFirmware.Text = "Update firmware on PSD";
+            m_tsmiFirmware.Click += OnFirmwareUpdate;
+            m_tsmiPopup.DropDownItems.Add(m_tsmiFirmware);
 
             // We want a notification when the user tried to save the
             // current database
@@ -83,80 +99,62 @@ namespace PSDPlugin
             ToolStripItemCollection tsMenu = m_host.MainWindow.ToolsMenu.DropDownItems;
             tsMenu.Remove(m_tsSeparator);
             tsMenu.Remove(m_tsmiPopup);
-            tsMenu.Remove(m_tsmiAddGroups);
-            tsMenu.Remove(m_tsmiAddEntries);
+            tsMenu.Remove(m_tsmiWrite);
+            tsMenu.Remove(m_tsmiMerge);
+            tsMenu.Remove(m_tsmiFirmware);
 
             // Important! Remove event handlers!
             m_host.MainWindow.FileSaved -= OnFileSaved;
         }
 
-        private void OnMenuAddGroups(object sender, EventArgs e)
-        {
-
-            var v = m_host.Database.RootGroup.GetEntries(true);
-            MessageBox.Show(v.UCount.ToString());
-            foreach (var entry in v)
-            {
-                MessageBox.Show(entry.Strings.Get(PwDefs.PasswordField).ReadString());
-            }
-
-
-            /*
-            if (!m_host.Database.IsOpen)
-            {
-                MessageBox.Show("You first need to open a database!", "Sample Plugin");
-                return;
-            }
-
-            Random r = new Random();
-
-            // Create 10 groups
-            for (int i = 0; i < 10; ++i)
-            {
-                // A new group with a random icon
-                PwGroup pg = new PwGroup(true, true, "Sample Group #" + i.ToString(),
-                    (PwIcon)r.Next(0, (int)(PwIcon.Count - 1)));
-
-                m_host.Database.RootGroup.AddGroup(pg, true);
-            }
-
-            m_host.MainWindow.UpdateUI(false, null, true, m_host.Database.RootGroup,
-                true, null, true);*/
-        }
-
-        private void OnMenuAddEntries(object sender, EventArgs e)
+        private void OnWrite(object sender, EventArgs e)
         {
             if (!m_host.Database.IsOpen)
             {
-                MessageBox.Show("You first need to open a database!", "Sample Plugin");
+                MessageBox.Show("You first need to open a database!", "PSD plugin");
+                return;
+            }
+            var database = m_host.Database;
+            
+            ProtectedString masterkey = ((KcpPassword)m_host.Database.MasterKey.GetUserKey(typeof(KcpPassword))).Password;
+
+            WriteBase form = new WriteBase(masterkey, database);
+            form.ShowDialog();
+
+        }
+
+        private void OnMerge(object sender, EventArgs e)
+        {
+            if (!m_host.Database.IsOpen)
+            {
+                MessageBox.Show("You first need to open a database!", "PSD plugin");
                 return;
             }
 
-            // Create 10 groups
-            for (int i = 0; i < 10; ++i)
-            {
-                // Create a new entry
-                PwEntry pe = new PwEntry(true, true);
 
-                // Set some of the string fields
-                pe.Strings.Set(PwDefs.TitleField, new ProtectedString(false, "Sample Entry"));
-                pe.Strings.Set(PwDefs.UserNameField, new ProtectedString(false,
-                    Guid.NewGuid().ToString()));
-
-                // Finally tell the parent group that it owns this entry now
-                m_host.Database.RootGroup.AddEntry(pe, true);
-            }
-
-            m_host.MainWindow.UpdateUI(false, null, true, m_host.Database.RootGroup,
-                true, null, true);
         }
+
+
+        private void OnKeysSync(object sender, EventArgs e)
+        {
+            MessageBox.Show("Keys Sync");
+        }
+
+
+        private void OnFirmwareUpdate(object sender, EventArgs e)
+        {
+            MessageBox.Show("Update firmware");
+        }
+
+
 
         private void OnFileSaved(object sender, FileSavedEventArgs e)
         {
-            MessageBox.Show("Notification received: the user has tried to save the current database to:\r\n" +
-                m_host.Database.IOConnectionInfo.Path + "\r\n\r\nResult:\r\n" +
-                (e.Success ? "Success" : "Failed"), "Sample Plugin",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
         }
+
+
+
+
     }
 }
