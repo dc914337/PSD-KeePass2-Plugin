@@ -17,7 +17,8 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -27,6 +28,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,6 +37,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="KeePass">
@@ -53,20 +56,31 @@
     <Compile Include="Forms\WriteBase.Designer.cs">
       <DependentUpon>WriteBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Locales\Localization.Designer.cs" />
     <Compile Include="PSDPluginExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms\WriteBase.resx">
       <DependentUpon>WriteBase.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Locales\Localization.resx" />
+    <EmbeddedResource Include="Locales\Localization.RU.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\PSD-PC-Library\PsdBasesSetter\PsdBasesSetter\PsdBasesSetter.csproj">
+      <Project>{701dabf1-7f96-481d-93fa-9cd815d46713}</Project>
+      <Name>PsdBasesSetter</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y $(TargetPath)  "C:\Program Files (x86)\KeePass Password Safe 2\$(TargetFileName)"</PostBuildEvent>
+    <PostBuildEvent>copy /Y $(TargetPath)  "C:\Program Files (x86)\KeePass Password Safe 2\$(TargetFileName)"
+copy /Y "$(SolutionDir)\..\..\PSD-PC-Library\PsdBasesSetter\PsdBasesSetter\bin\Debug\PsdBasesSetter.dll"  "C:\Program Files (x86)\KeePass Password Safe 2\PsdBasesSetter.dll"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -45,6 +45,7 @@
             this.btnRefresh.TabIndex = 31;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // cmbPsds
             // 
@@ -113,6 +114,7 @@
             this.Controls.Add(this.cmbPsds);
             this.Name = "WriteBase";
             this.Text = "WriteBase";
+            this.Load += new System.EventHandler(this.WriteBase_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
