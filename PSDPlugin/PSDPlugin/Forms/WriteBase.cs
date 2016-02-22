@@ -21,14 +21,14 @@ namespace PSDPlugin.Forms
     public partial class WriteBase : Form
     {
         private PwDatabase _kpDatabase;
-        private DataConnections DataConnections { get; set; } = new DataConnections();
+        private DataConnections _dataConnections { get; set; } = new DataConnections();
         private String _phoneBasePath;
 
 
 
         public WriteBase(ProtectedString masterkey, PwDatabase database)
         {
-            DataConnections.UserPass = masterkey.ReadString();
+            _dataConnections.UserPass = masterkey.ReadString();
             this._kpDatabase = database;
             InitializeComponent();
         }
@@ -36,8 +36,7 @@ namespace PSDPlugin.Forms
         private void WriteBase_Load(object sender, EventArgs e)
         {
             ReinitPsds();
-            Base psdBase = new PwBaseConverter(_kpDatabase).ConvertToPSD();
-
+            _dataConnections.MainBase = new PwBaseConverter(_kpDatabase).ConvertToPSD();
         }
 
 
@@ -69,21 +68,38 @@ namespace PSDPlugin.Forms
 
         private void btnWriteAll_Click(object sender, EventArgs e)
         {
-            if (!DataConnections.TryCreateAndSetPhoneBase(_phoneBasePath))
+            if (!_dataConnections.TryCreateAndSetPhoneBase(_phoneBasePath))
             {
                 MessageBox.Show(Localization.CantLoadFileString);
                 return;
             }
 
-
-            switch (DataConnections.TrySetPsdBase((PSDDevice)cmbPsds.SelectedItem))
+            switch (_dataConnections.TrySetPsdBase((PSDDevice)cmbPsds.SelectedItem))
             {
                 case PSDRepository.SetPsdResult.NotConnected:
                     MessageBox.Show(Localization.PsdConnectionError);
-                    break;
+                    return;
                 case PSDRepository.SetPsdResult.WrongPassword:
                     MessageBox.Show(Localization.WrongPasswordPSD);
                     FlushPassword();
+                    return;
+            }
+
+            var writeRes = _dataConnections.WriteAll();
+
+            switch (writeRes)
+            {
+                case WriteAllResult.FailedPc:
+                    MessageBox.Show(Localization.PCUpdatingError);
+                    break;
+                case WriteAllResult.FailedPhone:
+                    MessageBox.Show(Localization.PhoneUpdateError);
+                    break;
+                case WriteAllResult.FailedPsd:
+                    MessageBox.Show(Localization.PsdUpdatingError);
+                    break;
+                case WriteAllResult.Success:
+                    MessageBox.Show(Localization.WriteSuccess);
                     break;
             }
         }
@@ -95,7 +111,7 @@ namespace PSDPlugin.Forms
             if (MessageBox.Show("Do you want to set new password on PSD?", "Reset PSD password", MessageBoxButtons.YesNo)
                  == DialogResult.Yes)
             {
-                DataConnections.PsdBase.Reset();
+                _dataConnections.PsdBase.Reset();
             }
         }
 

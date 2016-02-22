@@ -61,24 +61,6 @@ namespace PSDPlugin.Locales {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set.
-        /// </summary>
-        internal static string btnSetText {
-            get {
-                return ResourceManager.GetString("btnSetText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unset.
-        /// </summary>
-        internal static string btnUnsetText {
-            get {
-                return ResourceManager.GetString("btnUnsetText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Can&apos;t load file. Password may be invalid.
         /// </summary>
         internal static string CantLoadFileString {
@@ -93,24 +75,6 @@ namespace PSDPlugin.Locales {
         internal static string ErrorWithPSDMsg {
             get {
                 return ResourceManager.GetString("ErrorWithPSDMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Some of bases are not up to date. Do you still want to exit?.
-        /// </summary>
-        internal static string ExitQuestion {
-            get {
-                return ResourceManager.GetString("ExitQuestion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unsaved bases.
-        /// </summary>
-        internal static string ExitQuestionFormText {
-            get {
-                return ResourceManager.GetString("ExitQuestionFormText", resourceCulture);
             }
         }
         
@@ -142,6 +106,15 @@ namespace PSDPlugin.Locales {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Errors writing PC base.
+        /// </summary>
+        internal static string PCUpdatingError {
+            get {
+                return ResourceManager.GetString("PCUpdatingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Errors while updating phone.
         /// </summary>
         internal static string PhoneUpdateError {
@@ -156,15 +129,6 @@ namespace PSDPlugin.Locales {
         internal static string PsdConnectionError {
             get {
                 return ResourceManager.GetString("PsdConnectionError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Errors while updating PSD.
-        /// </summary>
-        internal static string PsdUpdateError {
-            get {
-                return ResourceManager.GetString("PsdUpdateError", resourceCulture);
             }
         }
         
@@ -192,6 +156,15 @@ namespace PSDPlugin.Locales {
         internal static string UpdatingAllError {
             get {
                 return ResourceManager.GetString("UpdatingAllError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All bases were writed succesfully.
+        /// </summary>
+        internal static string WriteSuccess {
+            get {
+                return ResourceManager.GetString("WriteSuccess", resourceCulture);
             }
         }
         

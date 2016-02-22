@@ -50,7 +50,9 @@ namespace PSDPlugin.Converter
             var passes = new PasswordList();
             foreach (var kpPassItem in _kpGroup.Entries)
             {
-                passes.AddPass(new PwItemConverter(kpPassItem).ConvertToPSD());
+                var convertedPass = new PwItemConverter(kpPassItem).ConvertToPSD();
+                if (convertedPass.Pass.Length > 0)
+                    passes.AddPass(convertedPass);
             }
             return passes;
         }

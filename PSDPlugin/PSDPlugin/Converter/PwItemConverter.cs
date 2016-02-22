@@ -11,7 +11,7 @@ namespace PSDPlugin.Converter
     internal class PwItemConverter
     {
 
-        const string PASSWORD = "Password";
+       public const string PASSWORD = "Password";
         private PwEntry _kpPassItem;
 
         internal PwItemConverter(PwEntry kpPassItem)

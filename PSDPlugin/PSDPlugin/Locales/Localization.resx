@@ -117,23 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btnSetText" xml:space="preserve">
-    <value>Set</value>
-  </data>
-  <data name="btnUnsetText" xml:space="preserve">
-    <value>Unset</value>
-  </data>
   <data name="CantLoadFileString" xml:space="preserve">
     <value>Can't load file. Password may be invalid</value>
   </data>
   <data name="ErrorWithPSDMsg" xml:space="preserve">
     <value>Error with PSD</value>
-  </data>
-  <data name="ExitQuestion" xml:space="preserve">
-    <value>Some of bases are not up to date. Do you still want to exit?</value>
-  </data>
-  <data name="ExitQuestionFormText" xml:space="preserve">
-    <value>Unsaved bases</value>
   </data>
   <data name="InputDataError" xml:space="preserve">
     <value>Input data is invalid</value>
@@ -150,9 +138,6 @@
   <data name="PsdConnectionError" xml:space="preserve">
     <value>Can't connect to PSD</value>
   </data>
-  <data name="PsdUpdateError" xml:space="preserve">
-    <value>Errors while updating PSD</value>
-  </data>
   <data name="PsdUpdatingError" xml:space="preserve">
     <value>Errors while updating PSD</value>
   </data>
@@ -164,5 +149,11 @@
   </data>
   <data name="WrongPasswordPSD" xml:space="preserve">
     <value>Can't login into PSD. Wrong password.</value>
+  </data>
+  <data name="PCUpdatingError" xml:space="preserve">
+    <value>Errors writing PC base</value>
+  </data>
+  <data name="WriteSuccess" xml:space="preserve">
+    <value>All bases were writed succesfully</value>
   </data>
 </root>
