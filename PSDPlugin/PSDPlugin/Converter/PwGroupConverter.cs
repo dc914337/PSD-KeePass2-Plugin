@@ -32,13 +32,13 @@ namespace PSDPlugin.Converter
         {
             group.Name = _kpGroup.Name;
             group.Notes = _kpGroup.Notes;
-            group.UUID = _kpGroup.Uuid.ToString();
+            group.UUID = _kpGroup.Uuid.ToHexString();
         }
 
         private PassGroupsList GetSubgroups()
         {
             var subgroups = new PassGroupsList();
-            foreach (var subgroup in _kpGroup.Groups)
+            foreach (var subgroup in _kpGroup.Groups.Where(a=>a.EnableSearching==null || a.EnableSearching.Value))
             {
                 subgroups.Add(new PwGroupConverter(subgroup).ConvertToPSD());
             }

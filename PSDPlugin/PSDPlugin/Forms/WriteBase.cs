@@ -82,7 +82,7 @@ namespace PSDPlugin.Forms
                 case PSDRepository.SetPsdResult.WrongPassword:
                     MessageBox.Show(Localization.WrongPasswordPSD);
                     FlushPassword();
-                    return;
+                    break;
             }
 
             var writeRes = _dataConnections.WriteAll();

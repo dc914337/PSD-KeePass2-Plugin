@@ -22,11 +22,8 @@ namespace PSDPlugin.Converter
         internal PassItem ConvertToPSD()
         {
             PassItem passItem = new PassItem();
-            passItem.UUID = _kpPassItem.Uuid.ToString();
+            passItem.UUID = _kpPassItem.Uuid.ToHexString();
             passItem.Tags = _kpPassItem.Tags.ToArray();
-            passItem.Login = _kpPassItem.Strings.GetSafe("UserName").ReadString();
-            passItem.Title = _kpPassItem.Strings.GetSafe("Title").ReadString();
-            passItem.Description = _kpPassItem.Strings.GetSafe("Notes").ReadString();
             passItem.SetPassFromString(_kpPassItem.Strings.GetSafe(PASSWORD).ReadString());
             FillStringsWithoutSensitiveData(passItem);
             return passItem;
